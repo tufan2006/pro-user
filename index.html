@@ -1,55 +1,92 @@
-<!DOCTYPE html>
+ html = r'''<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pro User - Photo & Video Editor</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PRO USER</title>
 <style>
-* { box-sizing: border-box; }
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #101827;
-  color: white;
-  text-align: center;
-}
-header {
-  padding: 20px;
-  background: #19263b;
-}
-h1 { color: #38bdf8; }
-button, select {
-  padding: 14px 22px;
-  margin: 10px;
-  border: none;
-  border-radius: 10px;
-  font-size: 16px;
-}
-button {
-  background: #38bdf8;
-  cursor: pointer;
-}
-.card {
-  background: #1e293b;
-  margin: 20px;
-  padding: 25px;
-  border-radius: 15px;
-}
-#home { display: none; }
+:root{--bg:#0b1020;--panel:#151d33;--line:#2b3653;--text:#f4f7ff;--muted:#aab5d0;--accent:#7c5cff;--accent2:#21c7a8}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,sans-serif;background:linear-gradient(135deg,#0b1020,#15152e);color:var(--text);min-height:100vh}
+button,input{font:inherit}button{cursor:pointer;border:0;border-radius:10px;padding:10px 14px;font-weight:650}.primary{background:var(--accent);color:white}.secondary{background:#222d49;color:white;border:1px solid var(--line)}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px max(16px,4vw);border-bottom:1px solid var(--line);position:sticky;top:0;background:#0b1020ee;backdrop-filter:blur(12px);z-index:2}.brand{font-size:21px;font-weight:900;letter-spacing:1px}.brand span{color:#9b87ff}.actions{display:flex;gap:8px;align-items:center}.profile-wrap{position:relative}.menu{display:none;position:absolute;right:0;top:48px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:8px;width:210px;box-shadow:0 15px 35px #0008}.menu.open{display:block}.menu button{width:100%;text-align:left;margin:2px 0;background:transparent;color:var(--text)}.menu button:hover{background:#263252}.container{max-width:1050px;margin:auto;padding:28px 16px 60px}.hero{text-align:center;padding:30px 0 24px}.hero h1{font-size:clamp(30px,6vw,52px);margin:0 0 10px}.hero p,.muted{color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}.card{background:#151d33d9;border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:0 12px 30px #0002}.card h2{margin:0 0 8px;font-size:20px}.drop{border:1px dashed #65749b;border-radius:14px;padding:22px 12px;text-align:center;margin-top:14px}.drop input{max-width:100%;margin-top:14px}.preview{width:100%;max-height:300px;object-fit:contain;border-radius:12px;margin-top:14px;background:#080d19}.hidden{display:none!important}.section{margin-top:22px}.list{display:grid;gap:10px}.row{padding:12px;border-radius:12px;background:#202a45;display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}.pill{font-size:12px;background:#293659;padding:5px 8px;border-radius:999px;color:#d7ddff}.modal{position:fixed;inset:0;background:#050814eF;display:flex;align-items:center;justify-content:center;padding:20px;z-index:5}.modal-box{width:min(420px,100%);background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:26px;text-align:center}.modal-box h2{margin-top:0}.modal-box select{width:100%;padding:12px;border-radius:10px;margin:12px 0;background:#0e1528;color:white;border:1px solid var(--line)}.notice{font-size:13px;color:var(--muted);line-height:1.5;margin-top:20px}.empty{color:var(--muted);padding:10px 0}footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
 </style>
 </head>
-
 <body>
-<header>
-<h1>PRO USER</h1>
-<p>Photo & Video Editing Platform</p>
-<button onclick="alert('Login coming soon')">
-Sign In / Sign Up
-</button>
+<div id="languageModal" class="modal">
+  <div class="modal-box">
+    <h2 id="langTitle">Choose your language</h2>
+    <p class="muted" id="langSub">Select a language to continue</p>
+    <select id="languageSelect" aria-label="Choose language"><option value="en">English</option><option value="bn">বাংলা (Bangla)</option></select>
+    <button class="primary" id="continueBtn" style="width:100%">Continue</button>
+  </div>
+</div>
+<header class="top">
+  <div class="brand">PRO <span>USER</span></div>
+  <div class="actions">
+    <button class="secondary" id="signInBtn">Sign In</button>
+    <button class="primary" id="signUpBtn">Sign Up</button>
+    <div class="profile-wrap">
+      <button class="secondary" id="profileBtn" aria-label="Profile menu">👤</button>
+      <div class="menu" id="profileMenu">
+        <button data-view="home" data-en="Home" data-bn="হোম">Home</button>
+        <button data-view="subscription" data-en="Subscription" data-bn="সাবস্ক্রিপশন">Subscription</button>
+        <button data-view="editing" data-en="Editing History" data-bn="এডিটিং হিস্ট্রি">Editing History</button>
+        <button data-view="downloads" data-en="Download History" data-bn="ডাউনলোড হিস্ট্রি">Download History</button>
+      </div>
+    </div>
+  </div>
 </header>
-
-<section id="language">
-<h2>Choose Your Language</h2>
-<select id="lang">
-<option value="en">English</option>
-<option value="bn">বাংল
+<main class="container">
+  <section id="homeView">
+    <div class="hero"><h1 id="heroTitle">Create. Edit. Download.</h1><p id="heroSub">Choose a photo or video to preview it here.</p></div>
+    <div class="grid">
+      <div class="card">
+        <h2 id="photoTitle">Choose Photo</h2><p class="muted" id="photoDesc">Select an image from your device.</p>
+        <div class="drop"><span>🖼️</span><br><input id="photoInput" type="file" accept="image/*"><img id="photoPreview" class="preview hidden" alt="Selected photo preview"></div>
+      </div>
+      <div class="card">
+        <h2 id="videoTitle">Choose Video</h2><p class="muted" id="videoDesc">Select a video from your device.</p>
+        <div class="drop"><span>🎬</span><br><input id="videoInput" type="file" accept="video/*"><video id="videoPreview" class="preview hidden" controls></video></div>
+      </div>
+    </div>
+    <div class="card section"><h2 id="toolsTitle">Your workspace</h2><p class="muted" id="toolsDesc">This preview page lets you select and preview media. Full editing tools can be connected later.</p><button class="primary" id="saveHistoryBtn">Save to Editing History</button></div>
+  </section>
+  <section id="subscriptionView" class="hidden section"><div class="card"><h2 id="subscriptionTitle">Subscription</h2><p id="subscriptionText" class="muted">You are currently using the free prototype.</p><span class="pill">FREE PLAN</span><p class="notice">Payment and paid plans are not connected in this demo.</p></div></section>
+  <section id="editingView" class="hidden section"><div class="card"><h2 id="editingTitle">Editing History</h2><div id="editingList" class="list"><p class="empty">No editing history yet.</p></div></div></section>
+  <section id="downloadsView" class="hidden section"><div class="card"><h2 id="downloadsTitle">Download History</h2><div id="downloadsList" class="list"><p class="empty">No downloads from this website yet.</p></div><p class="notice">This website can list downloads initiated here; it cannot automatically read every file already downloaded to your phone.</p></div></section>
+  <p class="notice" id="disclaimer">Demo only: sign-in/sign-up, payments, cloud uploads, and real media editing need a secure backend. Do not enter a real password on this prototype.</p>
+</main>
+<footer>PRO USER · Website prototype</footer>
+<script>
+const copy={
+en:{choose:"Choose your language",sub:"Select a language to continue",cont:"Continue",signIn:"Sign In",signUp:"Sign Up",home:"Home",subscription:"Subscription",editing:"Editing History",downloads:"Download History",hero:"Create. Edit. Download.",heroSub:"Choose a photo or video to preview it here.",photo:"Choose Photo",photoDesc:"Select an image from your device.",video:"Choose Video",videoDesc:"Select a video from your device.",workspace:"Your workspace",workspaceDesc:"This preview page lets you select and preview media. Full editing tools can be connected later.",save:"Save to Editing History",subText:"You are currently using the free prototype.",disclaimer:"Demo only: sign-in/sign-up, payments, cloud uploads, and real media editing need a secure backend. Do not enter a real password on this prototype.",noEdit:"No editing history yet.",noDown:"No downloads from this website yet.",needBackend:"Payment and paid plans are not connected in this demo.",saved:"Saved to Editing History."},
+bn:{choose:"ভাষা বেছে নিন",sub:"এগিয়ে যেতে একটি ভাষা বেছে নিন",cont:"চালিয়ে যান",signIn:"সাইন ইন",signUp:"সাইন আপ",home:"হোম",subscription:"সাবস্ক্রিপশন",editing:"এডিটিং হিস্ট্রি",downloads:"ডাউনলোড হিস্ট্রি",hero:"তৈরি করুন। এডিট করুন। ডাউনলোড করুন।",heroSub:"প্রিভিউ দেখতে একটি ছবি বা ভিডিও বেছে নিন।",photo:"ছবি বেছে নিন",photoDesc:"ফোন থেকে একটি ছবি নির্বাচন করুন।",video:"ভিডিও বেছে নিন",videoDesc:"ফোন থেকে একটি ভিডিও নির্বাচন করুন।",workspace:"আপনার ওয়ার্কস্পেস",workspaceDesc:"এখানে ছবি ও ভিডিও নির্বাচন করে প্রিভিউ দেখা যাবে। পূর্ণ এডিটিং টুল পরে যুক্ত করা যাবে।",save:"এডিটিং হিস্ট্রিতে রাখুন",subText:"আপনি বর্তমানে ফ্রি প্রোটোটাইপ ব্যবহার করছেন।",disclaimer:"এটি ডেমো: সাইন ইন/সাইন আপ, পেমেন্ট, অনলাইন আপলোড এবং আসল মিডিয়া এডিটিং চালু করতে নিরাপদ সার্ভার দরকার। এখানে আসল পাসওয়ার্ড দেবেন না।",noEdit:"এখনও কোনো এডিটিং হিস্ট্রি নেই।",noDown:"এই ওয়েবসাইট থেকে এখনও কোনো ডাউনলোড হয়নি।",needBackend:"এই ডেমোতে পেমেন্ট বা পেইড প্ল্যান চালু নেই।",saved:"এডিটিং হিস্ট্রিতে সেভ হয়েছে।"}
+};
+let lang="en", currentFile=null;
+const $=id=>document.getElementById(id);
+function setText(id,key){$(id).textContent=copy[lang][key]}
+function applyLanguage(){
+ document.documentElement.lang=lang==="bn"?"bn":"en";
+ const map={langTitle:"choose",langSub:"sub",continueBtn:"cont",signInBtn:"signIn",signUpBtn:"signUp",heroTitle:"hero",heroSub:"heroSub",photoTitle:"photo",photoDesc:"photoDesc",videoTitle:"video",videoDesc:"videoDesc",toolsTitle:"workspace",toolsDesc:"workspaceDesc",saveHistoryBtn:"save",subscriptionText:"subText",disclaimer:"disclaimer"};
+ Object.entries(map).forEach(([id,key])=>setText(id,key));
+ document.querySelectorAll("[data-view]").forEach(b=>b.textContent=copy[lang][b.dataset.view==="home"?"home":b.dataset.view==="subscription"?"subscription":b.dataset.view==="editing"?"editing":"downloads"]);
+ $("editingList").innerHTML='<p class="empty">'+copy[lang].noEdit+'</p>';
+ $("downloadsList").innerHTML='<p class="empty">'+copy[lang].noDown+'</p>';
+}
+$("continueBtn").addEventListener("click",()=>{lang=$("languageSelect").value;applyLanguage();$("languageModal").classList.add("hidden")});
+$("profileBtn").addEventListener("click",()=>$("profileMenu").classList.toggle("open"));
+document.addEventListener("click",e=>{if(!e.target.closest(".profile-wrap"))$("profileMenu").classList.remove("open")});
+function showView(view){["home","subscription","editing","downloads"].forEach(v=>$(v+"View").classList.toggle("hidden",v!==view+"View"));$("profileMenu").classList.remove("open")}
+document.querySelectorAll("[data-view]").forEach(b=>b.addEventListener("click",()=>showView(b.dataset.view)));
+function demoAuth(kind){alert(lang==="bn"?(kind==="signIn"?"ডেমো সাইন ইন। আসল অ্যাকাউন্ট চালু করতে সার্ভার দরকার।":"ডেমো সাইন আপ। আসল অ্যাকাউন্ট চালু করতে সার্ভার দরকার।"):(kind==="signIn"?"Demo sign-in. A backend is required for real accounts.":"Demo sign-up. A backend is required for real accounts."))}
+$("signInBtn").onclick=()=>demoAuth("signIn");$("signUpBtn").onclick=()=>demoAuth("signUp");
+$("photoInput").addEventListener("change",e=>{const f=e.target.files[0];if(!f)return;currentFile=f.name;$("photoPreview").src=URL.createObjectURL(f);$("photoPreview").classList.remove("hidden");$("videoPreview").classList.add("hidden")});
+$("videoInput").addEventListener("change",e=>{const f=e.target.files[0];if(!f)return;currentFile=f.name;$("videoPreview").src=URL.createObjectURL(f);$("videoPreview").classList.remove("hidden");$("photoPreview").classList.add("hidden")});
+$("saveHistoryBtn").addEventListener("click",()=>{if(!currentFile){alert(lang==="bn"?"আগে একটি ছবি বা ভিডিও বেছে নিন।":"Choose a photo or video first.");return}const item=document.createElement("div");item.className="row";const name=document.createElement("span");name.textContent=currentFile;const tag=document.createElement("span");tag.className="pill";tag.textContent=new Date().toLocaleString();item.append(name,tag);const list=$("editingList");if(list.querySelector(".empty"))list.innerHTML="";list.prepend(item);showView("editing");alert(copy[lang].saved)});
+</script>
+</body>
+</html>'''
+path = "/mnt/data/pro-user-index.html"
+with open(path, "w", encoding="utf-8") as f:
+    f.write(html)
+print("Created:", path)
+print("HTML characters:", len(html))
